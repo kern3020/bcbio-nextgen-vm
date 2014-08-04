@@ -1,0 +1,9 @@
+---
+- name: Compute day of year
+  shell: date +%j
+  register: day_of_year
+
+- debug: msg="day of year {{ day_of_year.stdout }}"
+
+- name: Import docker image
+  shell: docker import http://{{ bcbio_bucket }}.s3.amazonaws.com/bcbio-nextgen-docker-image.gz bcbio-{{ day_of_year.stdout }}:latest
